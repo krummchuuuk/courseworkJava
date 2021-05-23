@@ -13,12 +13,12 @@
 <body>
     <div class="head"></div>
     <div class="row">
-        <div class="col-6"><img th:src="@{images/products/notebook1.jpg}" style="margin-left:150px; width: 600px; height: 600px;"></div>
+        <div class="col-6"><img th:src="${product.photo}" style="margin-left:150px; width: 600px; height: 600px;"></div>
         <div class="col-6">
-            <div class="row" style="margin-top: 100px;"><h3>Блокнот для ежедневных встреч</h3></div>
-            <div class="row mt-2"><h4>300Р</h4></div>
+            <div class="row" style="margin-top: 100px;"><h3 th:text="${product.name}"></h3></div>
+            <div class="row mt-2"><h4><span th:text="${product.price}"></span><span>Р</span></h4></div>
             <div class="row mt-4"><button style="width: 50%;" class="addProduct">Добавить в корзину</button></div>
-            <div class="row mt-5" style="width: 70%; text-align:justify; font-size: 20px;">Бумага ручной работы и хлопковая ткань. Карманный блокнот размером 3,5 x 6 дюймов в мягком переплете. Содержит 24 страницы бумаги ручной работы без рулонов. Этот ручной мраморный блокнот изготовлен мастерами из Санганера, Джайпур.</div>
+            <div class="row mt-5" style="width: 70%; text-align:justify; font-size: 20px;" th:text="${product.discription}"></div>
         </div>
     </div>
     <div class="foot"></div>

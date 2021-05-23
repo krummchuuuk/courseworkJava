@@ -44,7 +44,8 @@ public class MapController {
         return "html/cartPage.html";
     }
     @GetMapping("/product")
-    public String ProductPage() {
+    public String ProductPage(Model model, @RequestParam(name="id", required = false) int id) {
+        model.addAttribute("product", pService.findById(id));
         return "html/productPage.html";
     }
     @GetMapping("/registration") 

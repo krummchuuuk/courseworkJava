@@ -12,6 +12,7 @@ import coursework.ecomarket.repositories.ProductsRepo;
 
 interface productService {
     public List<Products> showByCategory(String category);
+    public Products findById(int id);
 }
 
 @Service
@@ -27,5 +28,9 @@ public class ProductsService implements productService {
         else {
             return productRepo.findByCategory(category);
         }
+    }
+    @Transactional
+    public Products findById(int id) {
+        return productRepo.findById(id);
     }
 }

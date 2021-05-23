@@ -18,37 +18,39 @@
                 <h4 style="text-align: center;"><a href="catalog" style="color: black; text-decoration: none;">Категории</a></h4>
                 <h5 class="mt-4">Для дома</h5>
                 <ul style="list-style: none;">
-                    <a href="catalog?category=storage" style="color: black; text-decoration: none;"><li class="mt-3">Хранение еды</li></a>
-                    <a href="catalog?category=office" style="color: black; text-decoration: none;"><li class="mt-3">Офис</li></a>
-                    <a href="catalog?category=pet" style="color: black; text-decoration: none;"><li class="mt-3">Животные</li></a>
+                    <a href="catalog?category=storage" style="color: black; text-decoration: none;"><li class="mt-1">Хранение еды</li></a>
+                    <a href="catalog?category=office" style="color: black; text-decoration: none;"><li class="mt-1">Офис</li></a>
+                    <a href="catalog?category=pet" style="color: black; text-decoration: none;"><li class="mt-1">Животные</li></a>
                 </ul>
                 <h5 class="mt-4">Красота & Ванна</h5>
                 <ul style="list-style: none;">
-                    <a href="catalog?category=shampoo" style="color: black; text-decoration: none;"><li class="mt-3">Шампуни и кодиционеры</li></a>
-                    <a href="catalog?category=tooth" style="color: black; text-decoration: none;"><li class="mt-3">Уход за полостью рта</li></a>
-                    <a href="catalog?category=skin" style="color: black; text-decoration: none;"><li class="mt-3">Уход за кожей</li></a>
+                    <a href="catalog?category=shampoo" style="color: black; text-decoration: none;"><li class="mt-1">Шампуни и кодиционеры</li></a>
+                    <a href="catalog?category=tooth" style="color: black; text-decoration: none;"><li class="mt-1">Уход за полостью рта</li></a>
+                    <a href="catalog?category=skin" style="color: black; text-decoration: none;"><li class="mt-1">Уход за кожей</li></a>
                 </ul>
                 <h5 class="mt-4">На ходу</h5>
                 <ul style="list-style: none;">
-                    <a href="catalog?category=bags" style="color: black; text-decoration: none;"><li class="mt-3">Сумки</li></a>
-                    <a href="catalog?category=tools" style="color: black; text-decoration: none;"><li class="mt-3">Столовые приборы</li></a>
-                    <a href="catalog?category=storage" style="color: black; text-decoration: none;"><li class="mt-3">Ланч-боксы</li></a>
+                    <a href="catalog?category=bags" style="color: black; text-decoration: none;"><li class="mt-1">Сумки</li></a>
+                    <a href="catalog?category=tools" style="color: black; text-decoration: none;"><li class="mt-1">Столовые приборы</li></a>
+                    <a href="catalog?category=storage" style="color: black; text-decoration: none;"><li class="mt-1">Ланч-боксы</li></a>
                 </ul>
                 <h5 class="mt-4">Для уборки</h5>
                 <ul style="list-style: none;">
-                    <a href="catalog?category=bath" style="color: black; text-decoration: none;"><li class="mt-3">Прачечная</li></a>
-                    <a href="catalog?category=clean" style="color: black; text-decoration: none;"><li class="mt-3">Для раковины</li></a>
-                    <a href="catalog?category=brush" style="color: black; text-decoration: none;"><li class="mt-3">Кисти и венчики</li></a>
+                    <a href="catalog?category=bath" style="color: black; text-decoration: none;"><li class="mt-1">Прачечная</li></a>
+                    <a href="catalog?category=clean" style="color: black; text-decoration: none;"><li class="mt-1">Для раковины</li></a>
+                    <a href="catalog?category=brush" style="color: black; text-decoration: none;"><li class="mt-1">Кисти и венчики</li></a>
                 </ul>
             </div>
             <div class="col-10 p-3">
                 <h2 style="text-align: center;">Каталог</h2>
                 <div class="row catalog-items">
-                    <a th:each="i : ${products}" class="product col-3 mb-5" style="text-align: center;">
-                        <img th:src="${i.photo}"/>
-                        <p th:text="${i.name}"></p>
-                        <span th:text="${i.price}"></span><span>Р</span>
-                    </a>
+                    <span th:each="i : ${products}" class="product col-3 mb-5" style="text-align: center;">
+                        <a th:href="@{'product'(id=${i.id})}">
+                            <img th:src="${i.photo}"/>
+                            <p th:text="${i.name}"></p>
+                            <span th:text="${i.price}"></span><span>Р</span>
+                        </a>
+                    </span>
                 </div>
             </div>
         </div>
