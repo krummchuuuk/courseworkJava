@@ -37,4 +37,12 @@ public class MapController {
     public String ProductPage() {
         return "html/productPage.html";
     }
+    @GetMapping("/registration") 
+    public String Registration() {
+        return "html/registrationForm.html";
+    }
+    @GetMapping("/login")
+    public String Login() {
+        return "html/loginForm.html";
+    }
 }

@@ -134,10 +134,26 @@ a:hover {
     border-radius: 60px;
     color: #fff;
 }
-.addProduct {
+.addProduct, .btn-singup, .btn-exit {
     color: #fff;
     padding: 10px;
     background-color: #234f1e;
     border: none;
     border-radius: 60px;
+}
+.btn-exit {
+    width: 300px;
+}
+.container-singup {
+    width: 100%;
+    text-align: center;
+}
+.inputData {
+    padding-left: 20px;
+    outline: none;
+    width: 50%;
+    height: 45px;
+    margin-top: 20px;
+    border: 1px solid gray;
+    border-radius: 45px;
 }
