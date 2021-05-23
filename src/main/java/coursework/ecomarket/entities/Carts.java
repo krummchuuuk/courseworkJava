@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +16,7 @@ public class Carts {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
-    @OneToMany(mappedBy="cart")
+    @ManyToMany(mappedBy="cart")
     private Set<Products> products;
     @Column(name="cost")
     private int cost;

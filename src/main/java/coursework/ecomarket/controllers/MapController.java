@@ -1,10 +1,19 @@
 package coursework.ecomarket.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import coursework.ecomarket.services.ProductsService;
 
 @Controller
 public class MapController {
+    @Autowired
+    ProductsService pService;
+
     @GetMapping("/")
     public String HomePage() {
         return "html/index";
@@ -18,7 +27,8 @@ public class MapController {
         return "html/delivery";
     }
     @GetMapping("/catalog") 
-    public String Catalog() {
+    public String Catalog(Model model, @RequestParam(name = "category", required = false) String category) {
+        model.addAttribute("products", pService.showByCategory(category));
         return "html/catalog";
     }
     @GetMapping("/userpage")

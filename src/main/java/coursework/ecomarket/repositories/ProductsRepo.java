@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import coursework.ecomarket.entities.Products;
 
 public interface ProductsRepo extends CrudRepository<Products, Long> {
-    List<Products> findall();
+    List<Products> findAll();
     List<Products> findByCategory(String category);
     Products findById(int id);
 }
