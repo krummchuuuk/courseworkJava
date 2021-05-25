@@ -14,12 +14,13 @@
     <div class="head"></div>
     <div class="row">
         <div class="col-6"><img th:src="${product.photo}" style="margin-left:150px; width: 600px; height: 600px;"></div>
-        <div class="col-6">
+        <form class="col-6" action="/addProduct">
             <div class="row" style="margin-top: 100px;"><h3 th:text="${product.name}"></h3></div>
             <div class="row mt-2"><h4><span th:text="${product.price}"></span><span>Р</span></h4></div>
-            <div class="row mt-4"><button style="width: 50%;" class="addProduct">Добавить в корзину</button></div>
+            <div class="row mt-4"><button style="width: 50%;" class="addProduct" type="submit">Добавить в корзину</button></div>
+            <input type="hidden" th:value="${product.id}" name="id">
             <div class="row mt-5" style="width: 70%; text-align:justify; font-size: 20px;" th:text="${product.discription}"></div>
-        </div>
+        </form>
     </div>
     <div class="foot"></div>
 </body>

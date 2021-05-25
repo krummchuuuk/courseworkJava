@@ -1,4 +1,4 @@
-package coursework.ecomarket.configurationDB;
+package coursework.ecomarket.configurationApp;
 
 import java.util.Properties;
 

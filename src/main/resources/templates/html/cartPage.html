@@ -19,25 +19,28 @@
         <div class="col-2" style="padding-left: 28px;">Цена</div>
     </div>
     <hr>
-    <div class="row inCart">
-        <div class="col-2"><img th:src="@{images/products/notebook1.jpg}" alt=""></div>
-        <div class="col-5 mt-3">Блокнот для ежедневных встреч</div>
-        <div class="col-3 num">
-            <button class="minus">-</button>
-            <input type="text" class="input-num" maxlength="2" style="border: none;">
-            <button class="plus">+</button>
-        </div>
-        <div class="col-2" style="font-size: 24px; text-align: center;">
-            <div class="row">
-                <div class="col price"><b>300Р</b></div>
-                <button class="col btn-close "></button>
+    <form>
+        <div th:each="i: ${cart.products}"class="row inCart">
+            <div class="col-2"><img th:src="${i.photo}" alt=""></div>
+            <div class="col-5 mt-3" th:text="${i.name}"></div>
+            <div class="col-3 num">
+                <button class="minus">-</button>
+                <input type="text" class="input-num" maxlength="2" style="border: none;">
+                <button class="plus">+</button>
+            </div>
+            <div class="col-2" style="font-size: 24px; text-align: center;">
+                <div class="row">
+                    <div class="col price"><b th:text="${i.price}"></b></div>
+                    <button class="col btn-close " action="/deleteItem"></button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="cost" style="width:100%; text-align: right;"><b>Итого <span>12345Р</span></b></div>
-    <div class="submit mt-5" style="width: 100%; text-align: right;">
-        <button class="btn-submit"  data-bs-toggle="modal" data-bs-target="#submitModal">Оформить заказ</button>
-        <!-- Modal -->
+        <div class="cost" style="width:100%; text-align: right;"><b>Итого <span th:text="${cart.cost}+'Р'"></span></b></div>
+        <div class="submit mt-5" style="width: 100%; text-align: right;">
+            <button class="btn-submit"  data-bs-toggle="modal" data-bs-target="#submitModal">Оформить заказ</button>
+        </div>
+    </form>
+    <!-- Modal -->
     <div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -54,9 +57,7 @@
                 </div>
             </div>
         </div>
-  </div>
     </div>
-    <div class="foot"></div>
-  
+    <div class="foot" style="width: 100%;"></div>
 </body>
 </html>

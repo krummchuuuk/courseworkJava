@@ -1,10 +1,9 @@
 package coursework.ecomarket.entities;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,8 +26,8 @@ public class Products {
     private String category;
     @Column(name="photo")
     private String photo;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Carts> cart;
+    @ManyToMany(mappedBy = "products")
+    private List<Carts> carts;
 
     public String getName() {
         return name;
@@ -39,8 +38,8 @@ public class Products {
     public String getDiscription() {
         return discription;
     }
-    public Set<Carts> getCart() {
-        return cart;
+    public List<Carts> getCart() {
+        return carts;
     }
     public String getCategory() {
         return category;
