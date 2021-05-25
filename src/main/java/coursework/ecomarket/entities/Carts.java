@@ -1,16 +1,16 @@
 package coursework.ecomarket.entities;
 
+import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,9 +22,8 @@ public class Carts {
     private int id;
     @Column(name="cost")
     private int cost;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "cart_products", joinColumns = @JoinColumn(name="cart_id"), inverseJoinColumns = @JoinColumn(name="products_id"))
-    private Set<Products> products;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CartProduct> products;
     @OneToOne(mappedBy = "cart")
     private Client client;
 
@@ -42,10 +41,28 @@ public class Carts {
     public int getCost() {
         return cost;
     }
-    public Set<Products> getProducts() {
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+    public Set<CartProduct> getProducts() {
         return products;
+    }
+    public void addProduct(Carts cart, Products product) {
+        this.products.add(new CartProduct(cart, product));
     }
     public void setClient(Client client) {
         this.client = client;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Carts cart = (Carts) o;
+        return Objects.equals(id, cart.getId());
+    }
+ 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

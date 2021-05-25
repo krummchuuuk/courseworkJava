@@ -1,13 +1,16 @@
 package coursework.ecomarket.entities;
 
 import java.util.List;
+import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,8 +29,8 @@ public class Products {
     private String category;
     @Column(name="photo")
     private String photo;
-    @ManyToMany(mappedBy = "products")
-    private List<Carts> carts;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartProduct> carts;
 
     public String getName() {
         return name;
@@ -38,7 +41,7 @@ public class Products {
     public String getDiscription() {
         return discription;
     }
-    public List<Carts> getCart() {
+    public List<CartProduct> getCart() {
         return carts;
     }
     public String getCategory() {
@@ -49,5 +52,21 @@ public class Products {
     }
     public String getPhoto() {
         return photo;
+    }
+    public void addCart(Carts cart, Products product) {
+        carts.add(new CartProduct(cart, product));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Products product = (Products) o;
+        return Objects.equals(id, product.getId());
+    }
+ 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -20,7 +20,7 @@
     </div>
     <hr>
     <form>
-        <div th:each="i: ${cart.products}"class="row inCart">
+        <div th:each="i: ${products}"class="row inCart">
             <div class="col-2"><img th:src="${i.photo}" alt=""></div>
             <div class="col-5 mt-3" th:text="${i.name}"></div>
             <div class="col-3 num">

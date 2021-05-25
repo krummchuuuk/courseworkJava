@@ -1,5 +1,9 @@
 package coursework.ecomarket.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -8,8 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import coursework.ecomarket.entities.CartProduct;
 import coursework.ecomarket.entities.Carts;
 import coursework.ecomarket.entities.Client;
+import coursework.ecomarket.entities.Products;
+import coursework.ecomarket.services.CartService;
 import coursework.ecomarket.services.ProductsService;
 import coursework.ecomarket.services.UserDetailServiceImpl;
 
@@ -19,6 +26,8 @@ public class MapController {
     private ProductsService pService;
     @Autowired
     private UserDetailServiceImpl uService;
+    @Autowired
+    private CartService cService;
     
     @GetMapping("/")
     public String HomePage() {
@@ -50,7 +59,13 @@ public class MapController {
     public String CartPage(Model model) {
         Client cli = (Client)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Carts cliCart = cli.getCart();
+        Set<CartProduct> pSet = cliCart.getProducts();
+        List<Products> products = new ArrayList();
+        for (CartProduct i: pSet) {
+            products.add(i.getProduct());
+        }
         model.addAttribute("cart", cliCart);
+        model.addAttribute("products", products);
         return "html/cartPage.html";
     }
     @GetMapping("/product")
@@ -74,10 +89,13 @@ public class MapController {
     @GetMapping("/addProduct")
     public String addProduct(@RequestParam("id") String id) {
         Carts cart = ((Client)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getCart();
-        cart.setProducts(pService.findById(Integer.valueOf(id)));
+        Products product = pService.findById(Integer.valueOf(id));
+        cart.setCost(cart.getCost()+product.getPrice());
+        cart.addProduct(cart, product);
+        cService.update(cart);
         return ("redirect:product?id="+id);
     }
-    @GetMapping("/deleteItem")
+    @GetMapping("/removeProduct")
     public String deleteProduct(@RequestParam("id") String id) {
         Carts cart = ((Client)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getCart();
         cart.getProducts().remove(pService.findById(Integer.valueOf(id)));
