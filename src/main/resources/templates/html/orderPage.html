@@ -12,21 +12,21 @@
 </head>
 <body>
     <div class="head"></div>
-    <h2 style="text-align: center;">Заказ №1234</h2>
+    <h2 style="text-align: center;" th:text="'Заказ №'+${order.id}"></h2>
     <hr>
     <div class="row mb-4">
         <div class="col-10" style="padding-left: 90px;">Товары</div>
         <div class="col-2" style="padding-left: 105px;">Цена</div>
     </div>
     <hr>
-    <div class="row inCart">
-        <div class="col-2"><img th:src="@{images/products/notebook1.jpg}" alt=""></div>
-        <a href="/product" class="col-8 mt-3" style="color: black; text-decoration: none; cursor: pointer;">Блокнот для ежедневных встреч</a>
+    <div th:each="i : ${order.prod}" class="row inCart">
+        <div class="col-2"><img th:src="${i.photo}" alt=""></div>
+        <span class="col-8 mt-3" style="color: black; text-decoration: none; cursor: pointer;" th:text="${i.name}"></span>
         <div class="col-2" style="font-size: 24px; text-align: center;">
-        <div class="row price"><b>300Р</b></div>
+        <div class="row price"><b th:text="${i.price}"></b></div>
     </div>
     </div>
-    <div class="cost" style="width:100%; text-align: right;"><b>Итого <span>12345Р</span></b></div>
+    <div class="cost" style="width:100%; text-align: right;"><b><span th:text="'Итого '+${cost}+'Р'"></span></b></div>
     <div class="foot"></div>
 </body>
 </html>

@@ -17,7 +17,7 @@
         <form class="loginForm" action="/login" method="POST">
             <input type="hidden" name="_csrf" value="{{_csrf.token}}">
             <input type="username" name="username" maxlength="50" class="inputData" placeholder="Логин">
-            <input type="password" name="password" maxlength="50" class="inputData" placeholder="Пароль"><br>
+            <input type="password" name="password" maxlength="50" class="inputData" placeholder="Пароль"><br><br>
             <p>Нет учетной записи? <a href="/registration" style="color:#234f1e;">Зарегистрируйтесь!</a></p>
             <button class="mt-3 btn-singup submit">Войти</button>
         </form>

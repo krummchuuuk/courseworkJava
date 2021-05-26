@@ -15,19 +15,11 @@
     <div class="container-profile mt-3">
         <img th:src="@{images/userPage.svg}"/>
         <p class="mt-2"><b><span th:text="${client.name}+' '+${client.surname}"></span></b></p>
-        <div class="orders mt-5">
-            <a href="/order" class="d-flex order" style="justify-content: space-between;">
+        <div th:each="i : ${orders}" class="orders mt-2">
+            <a th:href="@{'orderpage'(id=${i.id})}" class="d-flex order" style="justify-content: space-between;">
+                <input type="hidden" th:value="${i.id}" name="id">
                 <img th:src="@{images/shopping-bag.svg}" alt="">
-                <span>Заказ №1234</span>
-                <img th:src="@{images/chevron-right.svg}" alt="">
-            </a>
-            <a class="d-flex order" style="justify-content: space-between;">
-                <img th:src="@{images/shopping-bag.svg}" alt="">
-                <span>Заказ №1234</span>
-                <img th:src="@{images/chevron-right.svg}" alt="">
-            </a><a class="d-flex order" style="justify-content: space-between;">
-                <img th:src="@{images/shopping-bag.svg}" alt="">
-                <span>Заказ №1234</span>
+                <span th:text="'Заказ №'+${i.id}"></span>
                 <img th:src="@{images/chevron-right.svg}" alt="">
             </a>
         </div>
@@ -36,6 +28,6 @@
             <button class="mt-5 btn-exit">Выйти</button>        
         </form>
     </div>
-    <div class="foot fixed-bottom"></div>
+    <div class="foot"></div>
 </body>
 </html>

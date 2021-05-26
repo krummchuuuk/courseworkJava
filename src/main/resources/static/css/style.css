@@ -122,7 +122,7 @@ a:hover {
 }
 .cost {
     font-size: 28px;
-    padding-top: 100px;
+    padding-top: 10px;
     padding-right: 150px;
 }
 .submit {
@@ -142,7 +142,7 @@ a:hover {
     border: none;
     border-radius: 60px;
 }
-.btn-exit {
+.btn-exit, .btn-singup {
     width: 300px;
 }
 .container-singup {

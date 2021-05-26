@@ -1,7 +1,5 @@
 package coursework.ecomarket.entities;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -27,7 +25,7 @@ public class Order {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name="product_id")
     )
-    private Set<Products> prod;
+    public Set<Products> prod;
 
     @ManyToOne
     @JoinColumn(name="client_id")
@@ -39,7 +37,7 @@ public class Order {
     }
     public Order() {}
 
-    public Set<Products> getCartProd() {
+    public Set<Products> getProd() {
         return prod;
     }
     public Client getCli() {
