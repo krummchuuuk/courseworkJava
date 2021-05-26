@@ -1,7 +1,9 @@
 package coursework.ecomarket.entities;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,8 +12,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 @Table(name="products")
@@ -29,8 +36,11 @@ public class Products {
     private String category;
     @Column(name="photo")
     private String photo;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @NotFound(action = NotFoundAction.IGNORE)
     private List<CartProduct> carts;
+    @ManyToMany(mappedBy = "prod")
+    private Set<Order> order;
 
     public String getName() {
         return name;

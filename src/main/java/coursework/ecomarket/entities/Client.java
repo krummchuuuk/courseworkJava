@@ -1,6 +1,7 @@
 package coursework.ecomarket.entities;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -39,6 +41,8 @@ public class Client implements UserDetails{
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_cart", referencedColumnName = "id")
     private Carts cart;
+    @OneToMany(mappedBy = "cli", fetch = FetchType.EAGER)
+    private Set<Order> orders = new HashSet<>();
     
     public Client(String name, String surname, String email, String username, String password) {
         this.name = name;
@@ -70,6 +74,9 @@ public class Client implements UserDetails{
     }
     public Set<UserRole> getRoles() {
         return roles;
+    }
+    public Set<Order> getOrders() {
+        return orders;
     }
     public void setPassword(String password) {
         this.password = password;

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
@@ -26,6 +27,9 @@ public class CartProduct{
  
     @Column(name = "counter")
     private int counter;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
  
     private CartProduct() {}
  
@@ -36,6 +40,15 @@ public class CartProduct{
     }
     public Products getProduct() {
         return product;
+    }
+    public Carts getCart() {
+        return cart;
+    }
+    public void setCart(Carts cart) {
+        this.cart = cart;
+    }
+    public void setProduct(Products product) {
+        this.product = product;
     }
     @Override
     public boolean equals(Object o) {

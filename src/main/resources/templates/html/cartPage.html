@@ -19,27 +19,27 @@
         <div class="col-2" style="padding-left: 28px;">Цена</div>
     </div>
     <hr>
-    <form>
-        <div th:each="i: ${products}"class="row inCart">
+    <div>
+        <form th:each="i: ${products}"class="row inCart" action="/removeProduct">
             <div class="col-2"><img th:src="${i.photo}" alt=""></div>
             <div class="col-5 mt-3" th:text="${i.name}"></div>
             <div class="col-3 num">
-                <button class="minus">-</button>
-                <input type="text" class="input-num" maxlength="2" style="border: none;">
-                <button class="plus">+</button>
+                1 шт.
+                <input type="hidden" th:value="${i.id}" name="id">
             </div>
             <div class="col-2" style="font-size: 24px; text-align: center;">
                 <div class="row">
                     <div class="col price"><b th:text="${i.price}"></b></div>
-                    <button class="col btn-close " action="/deleteItem"></button>
+                    <button class="col btn-close" type="submit"></button>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="cost" style="width:100%; text-align: right;"><b>Итого <span th:text="${cart.cost}+'Р'"></span></b></div>
-        <div class="submit mt-5" style="width: 100%; text-align: right;">
-            <button class="btn-submit"  data-bs-toggle="modal" data-bs-target="#submitModal">Оформить заказ</button>
-        </div>
-    </form>
+        <form class="submit mt-5" style="width: 100%; text-align: right;" action="/createOrder">
+            <input type="hidden" th:value="${products}">
+            <button class="btn-submit submit">Оформить заказ</button>
+        </form>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
         <div class="modal-dialog">

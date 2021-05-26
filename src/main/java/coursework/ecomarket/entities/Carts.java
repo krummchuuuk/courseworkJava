@@ -1,5 +1,7 @@
 package coursework.ecomarket.entities;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,6 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 @Entity
 @Table(name="carts")
 public class Carts {
@@ -22,8 +27,9 @@ public class Carts {
     private int id;
     @Column(name="cost")
     private int cost;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CartProduct> products;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Set<CartProduct> products = new HashSet<>();
     @OneToOne(mappedBy = "cart")
     private Client client;
 
@@ -52,6 +58,21 @@ public class Carts {
     }
     public void setClient(Client client) {
         this.client = client;
+    }
+    public CartProduct removeProduct(Products prod) {
+        for (Iterator<CartProduct> iterator = products.iterator();
+             iterator.hasNext(); ) {
+            CartProduct cartProd = iterator.next();
+ 
+            if (cartProd.getCart().equals(this) && cartProd.getProduct().equals(prod)) {
+                iterator.remove();
+                cartProd.getProduct().getCart().remove(cartProd);
+                cartProd.setCart(null);
+                cartProd.setProduct(null);
+                return cartProd;
+            }
+        }
+        return null;
     }
     @Override
     public boolean equals(Object o) {
